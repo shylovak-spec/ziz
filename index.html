@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Інформація про хімічні речовини</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #374151;
+            padding: 1rem;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .info-panel {
+            background-color: #e5e7eb;
+            border-radius: 1rem;
+            padding: 1rem;
+            text-align: left;
+            width: 100%;
+        }
+        .info-panel ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+        }
+        .info-panel li {
+            margin-bottom: 0.5rem;
+        }
+        .list-item {
+            background-color: #e5e7eb;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: block;
+            text-decoration: none;
+            color: #1f2937;
+            font-weight: 600;
+        }
+        .list-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        @media (min-width: 640px) {
+            .container.detail-view {
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+                gap: 2rem;
+            }
+            .info-container {
+                align-items: flex-start;
+            }
+            .content-section {
+                flex-direction: row;
+                justify-content: flex-start;
+                gap: 2rem;
+            }
+            .image-and-buttons {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
+            }
+            .image-and-buttons img {
+                width: 200px; /* Збільшення розміру зображення на більших екранах */
+            }
+            .buttons-container {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <!-- Головний контейнер додатку -->
+    <div id="appContainer" class="container">
+        
+        <!-- Цей блок буде прихований або видимий в залежності від того, що відображається -->
+        <div id="mainView">
+            <h1 class="text-3xl font-bold mb-6">Список хімічних речовин</h1>
+            <div id="substanceList" class="space-y-4">
+                <!-- Список речовин буде згенеровано тут за допомогою JavaScript -->
+            </div>
+        </div>
+
+        <!-- Цей блок буде прихований або видимий в залежності від того, що відображається -->
+        <div id="detailView" class="hidden">
+            <button onclick="showMainView()" class="absolute top-4 left-4 text-blue-500 hover:underline transition-all duration-300 transform hover:scale-105">
+                &larr; Назад до списку
+            </button>
+            <div id="detailContent" class="w-full flex flex-col sm:flex-row gap-8">
+                <!-- Детальна інформація буде згенерована тут -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Об'єкт з даними про хімічні речовини
+        const substanceData = {
+            'Паяльна паста': {
+                image: 'Знімок екрана 2025-08-20 о 15.51.20.jpg',
+                dangers: `
+                    <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Може викликати алергічну реакцію шкіри (H317)</li>
+                        <li>Дуже токсичний для водних організмів (H400)</li>
+                        <li>Дуже токсичний для водних організмів з довготривалими наслідками (H410)</li>
+                        <li>Токсичний для водних організмів з довготривалими наслідками (H411)</li>
+                    </ul>
+                `,
+                actions: `
+                    <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><b>Потрапляння в очі:</b> промити великою кількістю води протягом 10хв</li>
+                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                        <li><b>Алергія на шкірі:</b> промити великою кількістю води протягом 10хв</li>
+                        <li><b>Проковтування:</b> промити рот великою кількістю води. Випити невелику кількість води. Не провокувати блювоту.</li>
+                    </ul>
+                `,
+                protection: `
+                    <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Захисні рукавички гумові</li>
+                        <li>Захисні окуляри закритого типу</li>
+                    </ul>
+                `,
+                simpleExplanation: `
+                    <h3 class="font-bold text-lg mb-2">Пояснення для неспеціалістів</h3>
+                    <p class="text-gray-700">
+                        Паяльна паста — це спеціальна суміш, яка використовується для з'єднання електронних компонентів на платах. Вона містить дрібні частинки металу, які плавляться при нагріванні, створюючи надійний контакт.
+                    </p>
+                `,
+                industrialApplication: `
+                    <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Виробництво друкованих плат (PCB)</li>
+                        <li>Монтаж SMD-компонентів (технологія поверхневого монтажу)</li>
+                        <li>Ремонт електронної техніки</li>
+                    </ul>
+                `
+            },
+            'Спирт ізопропіловий': {
+                image: 'https://placehold.co/200x200/e5e7eb/374151?text=IPA',
+                dangers: `
+                    <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Викликає серйозне подразнення очей (H319)</li>
+                        <li>Може викликати сонливість або запаморочення (H336)</li>
+                        <li>Легкозаймиста рідина та випари (H225)</li>
+                    </ul>
+                `,
+                actions: `
+                    <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><b>Потрапляння в очі:</b> промити великою кількості води протягом 10хв</li>
+                        <li><b>Отруєння:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                    </ul>
+                `,
+                protection: `
+                    <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Захисні рукавички гумові</li>
+                        <li>Захисні окуляри закритого типу</li>
+                    </ul>
+                `,
+                simpleExplanation: `
+                    <h3 class="font-bold text-lg mb-2">Пояснення для неспеціалістів</h3>
+                    <p class="text-gray-700">
+                        Ізопропіловий спирт — це звичайна рідина, яку часто використовують для очищення поверхонь, оскільки він швидко випаровується і не залишає слідів.
+                    </p>
+                `,
+                industrialApplication: `
+                    <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Очищення електронних компонентів</li>
+                        <li>Як розчинник у хімічній промисловості</li>
+                        <li>Виробництво дезінфікуючих засобів</li>
+                    </ul>
+                `
+            },
+            'Mr Muscle': {
+                image: 'https://placehold.co/200x200/e5e7eb/374151?text=Mr+Muscle',
+                dangers: `
+                    <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Викликає серйозне пошкодження очей (H318)</li>
+                    </ul>
+                `,
+                actions: `
+                    <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><b>Потрапляння в очі:</b> промити великою кількості води протягом 15хв</li>
+                        <li><b>Отруєння:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                    </ul>
+                `,
+                protection: `
+                    <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Захисні рукавички гумові</li>
+                        <li>Захисні окуляри закритого типу або повнолицьова маска</li>
+                    </ul>
+                `,
+                simpleExplanation: `
+                    <h3 class="font-bold text-lg mb-2">Пояснення для неспеціалістів</h3>
+                    <p class="text-gray-700">
+                        "Mr Muscle" — це популярний миючий засіб, який ефективно очищає жир та інші забруднення на різних поверхнях.
+                    </p>
+                `,
+                industrialApplication: `
+                    <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Прибирання та дезінфекція поверхонь</li>
+                        <li>Використання в клінінгових компаніях</li>
+                    </ul>
+                `
+            },
+            'Миючий засіб "Blitz"': {
+                image: 'https://placehold.co/200x200/e5e7eb/374151?text=Blitz',
+                dangers: `
+                    <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Викликає подразнення шкіри (H315)</li>
+                        <li>Викликає серйозне пошкодження очей (H318)</li>
+                    </ul>
+                `,
+                actions: `
+                    <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><b>Потрапляння в очі:</b> промити великою кількості води протягом 15хв</li>
+                        <li><b>Отруєння:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                        <li><b>Контакт зі шкірою:</b> змити великою кількістю води, зняти забруднений одяг. У разі несприятливих наслідків для здоров'я звернутися до лікаря, при забрудненні одягу, випрати перед повторним використанням.</li>
+                    </ul>
+                `,
+                protection: `
+                    <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Захисні рукавички гумові</li>
+                        <li>Захисні окуляри закритого типу або повнолицьова маска</li>
+                    </ul>
+                `,
+                simpleExplanation: `
+                    <h3 class="font-bold text-lg mb-2">Пояснення для неспеціалістів</h3>
+                    <p class="text-gray-700">
+                        "Blitz" — це сильний миючий засіб, який використовується для очищення стійких забруднень.
+                    </p>
+                `,
+                industrialApplication: `
+                    <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Чищення обладнання та промислових приміщень</li>
+                        <li>Використання в автомийках</li>
+                    </ul>
+                `
+            }
+        };
+
+        // Функція для відображення головної сторінки зі списком
+        function showMainView() {
+            document.getElementById('mainView').classList.remove('hidden');
+            document.getElementById('detailView').classList.add('hidden');
+            document.getElementById('appContainer').classList.remove('detail-view');
+        }
+
+        // Функція для відображення детальної інформації про речовину
+        function showDetailView(substanceName) {
+            const data = substanceData[substanceName];
+            if (!data) return;
+
+            const detailContent = document.getElementById('detailContent');
+            detailContent.innerHTML = `
+                <div class="info-container w-full sm:w-1/2">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center sm:text-left">${substanceName}</h2>
+                    
+                    <div class="image-and-buttons">
+                        <img src="${data.image}" alt="Зображення ${substanceName}" class="w-48 h-auto rounded-lg mb-4 sm:mb-0">
+                        <div class="buttons-container w-full sm:w-auto">
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "dangers")' class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Небезпеки</button>
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "actions")' class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Дії при аварії</button>
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "protection")' class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Засоби захисту</button>
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "simpleExplanation")' class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Пояснення для неспеціалістів</button>
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "industrialApplication")' class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105">Застосування на виробництві</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="substanceInfoDisplay" class="info-panel mt-4 sm:mt-0 w-full sm:w-1/2">
+                    <p class="text-gray-600">Натисніть на одну з кнопок, щоб побачити інформацію.</p>
+                </div>
+            `;
+            document.getElementById('mainView').classList.add('hidden');
+            document.getElementById('detailView').classList.remove('hidden');
+            document.getElementById('appContainer').classList.add('detail-view');
+        }
+
+        // Функція для відображення конкретної інформації про речовину (небезпеки, дії, захист)
+        function showSubstanceInfo(substanceName, infoType) {
+            const displayPanel = document.getElementById('substanceInfoDisplay');
+            const content = substanceData[substanceName][infoType];
+            displayPanel.innerHTML = content;
+        }
+
+        // Функція для ініціалізації додатка
+        function initializeApp() {
+            const substanceList = document.getElementById('substanceList');
+            
+            // Динамічно генеруємо список речовин з об'єкта substanceData
+            for (const substance in substanceData) {
+                const listItem = document.createElement('a');
+                listItem.href = '#';
+                listItem.classList.add('list-item');
+                listItem.textContent = substance;
+                listItem.onclick = (e) => {
+                    e.preventDefault();
+                    showDetailView(substance);
+                };
+                substanceList.appendChild(listItem);
+            }
+        }
+
+        // Запуск додатка при завантаженні сторінки
+        window.onload = initializeApp;
+    </script>
+</body>
+</html>
+
