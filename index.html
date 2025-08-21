@@ -98,7 +98,7 @@
         
         <!-- Цей блок буде прихований або видимий в залежності від того, що відображається -->
         <div id="mainView">
-            <h1 class="text-3xl font-bold mb-6">Список хімічних речовин</h1>
+            <h1 class="text-3xl font-bold mb-6">Список хімічних речовин для дільниці SMT</h1>
             <div id="substanceList" class="space-y-4">
                 <!-- Список речовин буде згенеровано тут за допомогою JavaScript -->
             </div>
@@ -187,7 +187,7 @@
                     </ul>
                 `
             },
-            'Миючий засіб Mr Muscle': {
+            'Миючий засіб "Mr. Muscle"': {
                 image: 'https://placehold.co/200x200/e5e7eb/374151?text=Mr+Muscle',
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
@@ -283,7 +283,7 @@
                     </ul>
                 `
             },
-            'Stabylan 773 ND ': {
+            'Stabylan 773 ND': {
                 image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/main/images/pasta.png', // Оновлене посилання на "сирий" файл
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
@@ -351,6 +351,40 @@
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Для підвищення стабільності 12v розʼєму під час SMT монтажу плати HC.001.PW1.001v9</li>
+                    </ul>
+                `
+            },
+            'AQUANOX A4651US': {
+                image: 'https://placehold.co/200x200/e5e7eb/374151?text=Mr+Muscle',
+                dangers: `
+                    <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Шкідливий при проковтуванні (Н302)</li>
+                        <li>Шкідливий при контакті зі шкірою (Н312)</li>
+                        <li>Викликає хімічні опіки при потраплянні на шкіру та в очі (Н314)</li>
+                        <li>Викликає серйозне пошкодження очей (Н318)</li>
+                    </ul>
+                `,
+                actions: `
+                    <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li><b>Потрапляння в очі:</b> Промити відкриті очі під проточною водою протягом кількох хвилин. Звернутися до лікаря.</li>
+                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг. У разі втрати свідомості покласти постраждалого у стабільне бокове положення (комір, краватка, ремінь або пояс)</li>
+                        <li><b>Алергія на шкірі:</b> Ретельно ромити водою з милом </li>
+                        <li><b>Проковтування:</b> Випити велику кількість води та забезпечити доступ свіжого повітря. Негайно викликати лікаря.</li>
+                    </ul>
+                `,
+                protection: `
+                    <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Захисні рукавички</li>
+                        <li>Захисні окуляри щильно закриті</li>
+                    </ul>
+                `,
+                industrialApplication: `
+                    <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Для технічного обслуговування УЗМ</li>
                     </ul>
                 `
             },
