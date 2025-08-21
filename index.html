@@ -119,7 +119,7 @@
         // Об'єкт з даними про хімічні речовини
         const substanceData = {
             'Паяльна паста': {
-                image: 'Знімок екрана 2025-08-20 о 15.51.20.jpg',
+                image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/e38ae364a4e6abe28b290f1eecaaa1327e36910a/Паяльна%20паста.png', // Оновлене посилання на "сирий" файл
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
                     <ul class="list-disc pl-5 text-gray-700">
@@ -208,7 +208,6 @@
                         <li>Захисні рукавички гумові</li>
                         <li>Захисні окуляри закритого типу або повнолицьова маска</li>
                     </ul>
-                
                 `,
                 industrialApplication: `
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
@@ -240,7 +239,7 @@
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Захисні рукавички гумові</li>
                         <li>Захисні окуляри закритого типу або повнолицьова маска</li>
-                    </ul> 
+                    </ul>
                 `,
                 industrialApplication: `
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
@@ -251,14 +250,13 @@
                 `
             },
             'Glutoclean': {
-                image: 'https://placehold.co/200x200/e5e7eb/374151?text=Blitz',
+                image: 'https://placehold.co/200x200/e5e7eb/374151?text=Glutoclean',
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Може спричинити корозію металів (H290)</li>
                         <li>При попаданні на шкіру та очі викликає хімічні опіки (H314)</li>
                         <li>Викликає подразнення шкіри (H315)</li>
-                        <li>При попаданні на шкіру викликає подразнення (H318)</li>
                         <li>При попаданні у вічі викликає незворотні наслідки (H319)</li>
                     </ul>
                 `,
@@ -278,10 +276,11 @@
                         <li>Захисні окуляри закритого типу або повнолицьова маска</li>
                     </ul>
                 `,
-                simpleExplanation: `
+                industrialApplication: `
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
-                    <p class="text-gray-700">Чистка від флюсу
-                    </p>
+                    <ul class="list-disc pl-5 text-gray-700">
+                        <li>Чистка від флюсу</li>
+                    </ul>
                 `
             },
         };
@@ -309,8 +308,7 @@
                             <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "dangers")' class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Небезпеки</button>
                             <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "actions")' class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Дії при аварії</button>
                             <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "protection")' class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Засоби захисту</button>
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "simpleExplanation")' class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Пояснення для неспеціалістів</button>
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "industrialApplication")' class="w-full bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105">Застосування на виробництві</button>
+                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "industrialApplication")' class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105">Застосування на виробництві</button>
                         </div>
                     </div>
                 </div>
@@ -354,4 +352,3 @@
     </script>
 </body>
 </html>
-
