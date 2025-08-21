@@ -59,6 +59,23 @@
             transform: translateY(-5px);
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
+        /* Оновлені стилі для контейнера зображення, щоб встановити фіксований розмір */
+        .image-wrapper {
+            width: 200px; /* Фіксована ширина */
+            height: 200px; /* Фіксована висота */
+            position: relative;
+            overflow: hidden;
+            border-radius: 1rem;
+        }
+        /* Властивість object-fit: contain масштабує зображення, щоб воно повністю помістилось у контейнер */
+        .image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
         @media (min-width: 640px) {
             .container.detail-view {
                 flex-direction: row;
@@ -79,9 +96,6 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 1rem;
-            }
-            .image-and-buttons img {
-                width: 200px; /* Збільшення розміру зображення на більших екранах */
             }
             .buttons-container {
                 display: flex;
@@ -107,8 +121,8 @@
         <!-- Цей блок буде прихований або видимий в залежності від того, що відображається -->
         <div id="detailView" class="hidden">
             <button onclick="showMainView()" class="absolute top-4 left-4 text-black text-2xl font-bold transition-all duration-300 transform hover:scale-105">
-    &larr;
-</button>
+                &larr;
+            </button>
             <div id="detailContent" class="w-full flex flex-col sm:flex-row gap-8">
                 <!-- Детальна інформація буде згенерована тут -->
             </div>
@@ -404,17 +418,18 @@
 
             const detailContent = document.getElementById('detailContent');
             detailContent.innerHTML = `
-                <div class="info-container w-full sm:w-1/2">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center sm:text-left">${substanceName}</h2>
-                    
-                    <div class="image-and-buttons">
-                        <img src="${data.image}" alt="Зображення ${substanceName}" class="w-48 h-auto rounded-lg mb-4 sm:mb-0">
-                        <div class="buttons-container w-full sm:w-auto">
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "dangers")' class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Небезпеки</button>
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "actions")' class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Дії при аварії</button>
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "protection")' class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Засоби захисту</button>
-                            <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "industrialApplication")' class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105">Застосування на виробництві</button>
-                        </div>
+                <!-- Контейнер для зображення та кнопок -->
+                <div class="image-and-buttons flex flex-col items-center w-full sm:w-1/2">
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center">${substanceName}</h2>
+                    <!-- Оновлений контейнер для зображення з фіксованим розміром -->
+                    <div class="image-wrapper mb-4">
+                        <img src="${data.image}" alt="Зображення ${substanceName}" class="rounded-lg">
+                    </div>
+                    <div class="buttons-container w-full sm:w-auto">
+                        <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "dangers")' class="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Небезпеки</button>
+                        <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "actions")' class="w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Дії при аварії</button>
+                        <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "protection")' class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105 mb-2">Засоби захисту</button>
+                        <button onclick='showSubstanceInfo(${JSON.stringify(substanceName)}, "industrialApplication")' class="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl shadow-md transition-all duration-300 transform hover:scale-105">Застосування на виробництві</button>
                     </div>
                 </div>
 
