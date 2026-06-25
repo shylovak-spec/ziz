@@ -72,7 +72,7 @@
                 gap: 2rem;
             }
             .info-container {
-                align-items: flex-start;
+                align-items: center;
             }
             .content-section {
                 flex-direction: row;
@@ -108,30 +108,30 @@
                 <input type="text" id="searchInput" placeholder="Пошук речовини..." class="w-full px-4 py-3 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
             </div>
 
-            <div id="substanceList" class="space-y-4">
-                </div>
+            <div id="substanceList" class="space-y-4"></div>
         </div>
 
-        <div id="detailView" class="hidden relative w-full">
-            <button onclick="showMainView()" class="absolute top-0 left-0 text-black text-2xl font-bold transition-all duration-300 transform hover:scale-105 z-10">
-                &larr;
-            </button>
-            <div id="detailContent" class="w-full flex flex-col sm:flex-row gap-8 pt-10 sm:pt-0">
+        <div id="detailView" class="hidden w-full">
+            <div class="w-full text-left mb-2">
+                <button onclick="showMainView()" class="text-black text-3xl font-bold transition-all duration-300 transform hover:scale-110 focus:outline-none px-2">
+                    &larr;
+                </button>
+            </div>
+            <div id="detailContent" class="w-full flex flex-col sm:flex-row gap-8">
                 </div>
         </div>
     </div>
 
     <script>
-        // Об'єкт з даними про хімічні речовини
         const substanceData = {
             'Паяльна паста': {
-                image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/main/images/pasta.png', // Оновлене посилання на "сирий" файл
+                image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/main/images/pasta.png',
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Може викликати алергічну реакцію шкіри (H317)</li>
                         <li>Дуже токсичний для водних організмів (H400)</li>
-                        <li>Дуже токсичний для водних організмів з довготривалими наслідками (H410)</li>
+                        <li>Дуже toxicity для водних організмів з довготривалими наслідками (H410)</li>
                         <li>Токсичний для водних організмів з довготривалими наслідками (H411)</li>
                     </ul>
                 `,
@@ -139,15 +139,15 @@
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг</li>
                         <li><b>Потрапляння на шкіру:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Проковтування:</b> Промити рот великою кількістю води. Випити невелику кількість води. Не провокувати блювоту.</li>
+                        <li><b>Проковтування:</b> Промити рот водою. Не провокувати блювоту.</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрілові</li>
+                        <li>Захисні рукавички нітрилові</li>
                         <li>Захисні окуляри закритого типу</li>
                     </ul>
                 `,
@@ -155,7 +155,7 @@
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Виробництво друкованих плат (PCB)</li>
-                        <li>Монтаж SMD-компонентів (технологія поверхневого монтажу)</li>
+                        <li>Монтаж SMD-компонентів</li>
                         <li>Ремонт електронної техніки</li>
                     </ul>
                 `
@@ -174,13 +174,13 @@
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
+                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрілові</li>
+                        <li>Захисні рукавички нітрилові</li>
                         <li>Захисні окуляри закритого типу</li>
                     </ul>
                 `,
@@ -189,7 +189,7 @@
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Очищення електронних компонентів</li>
                         <li>Як розчинник жирів</li>
-                        <li>Обслуговування зони принеру та печі</li>
+                        <li>Обслуговування зони принтера та печі</li>
                     </ul>
                 `
             },
@@ -205,13 +205,12 @@
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 15 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрілові</li>
+                        <li>Захисні рукавички нітрилові</li>
                         <li>Захисні окуляри (за потреби)</li>
                     </ul>
                 `,
@@ -236,22 +235,19 @@
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 15 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
-                        <li><b>Потрапляння на шкіру:</b> Змити великою кількістю води, зняти забруднений одяг. У разі несприятливих наслідків для здоров'я звернутися до лікаря. При забрудненні одягу, випрати перед повторним використанням.</li>
+                        <li><b>Потрапляння на шкіру:</b> Змити великою кількістю води</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрілові</li>
-                        <li>Захисні окуляри (за потреби)</li>
+                        <li>Захисні рукавички нітрилові</li>
                     </ul>
                 `,
                 industrialApplication: `
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Чищення обладнання та промислових приміщень</li>
-                        <li>Прибирання робочого місця</li>
                     </ul>
                 `
             },
@@ -262,24 +258,20 @@
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Може спричинити корозію металів (H290)</li>
                         <li>При попаданні на шкіру та очі викликає хімічні опіки (H314)</li>
-                        <li>Викликає подразнення шкіри (H315)</li>
-                        <li>Викликає серйозне подразнення очей (H319)</li>
                     </ul>
                 `,
                 actions: `
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
-                        <li><b>Потрапляння на шкіру:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Проковтування:</b> Промити рот великою кількістю води. Випити невелику кількість води. Не провокувати блювоту.</li>
+                        <li><b>Потрапляння на шкіру:</b> Промити великою кількістю води</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрілові</li>
-                        <li>Захисні окуляри закритого типу або повнолицьова маска</li>
+                        <li>Захисні рукавички нітрилові</li>
+                        <li>Захисні окуляри закритого типу</li>
                     </ul>
                 `,
                 industrialApplication: `
@@ -290,31 +282,25 @@
                 `
             },
             'Stabylan 773 ND': {
-                image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/refs/heads/main/images/%D1%81%D1%82%D0%B0%D0%B1%D1%96%D0%BB%D0%B0%D0%BD.webp', // Оновлене посилання на "сирий" файл
+                image: 'https://raw.githubusercontent.com/shylovak-spec/ziz/refs/heads/main/images/%D1%81%D1%82%D0%B0%D0%B1%D1%96%D0%BB%D0%B0%D0%BD.webp',
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Може викликати алергічну реакцію шкіри (H317)</li>
                         <li>Шкідливий при проковтуванні (H302)</li>
-                        <li>Може завдати шкоди органам через тривалий або повторний вплив (H373)</li>
-                        <li>Дуже токсичний для водних організмів з довготривалими наслідками (H410)</li>
                     </ul>
                 `,
                 actions: `
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 15 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
-                        <li><b>Потрапляння на шкіру:</b> Промити великою кількістю води протягом 10 хв</li>
-                        <li><b>Проковтування:</b> Промити рот великою кількістю води. Випити невелику кількість води. Не провокувати блювоту</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Захисні рукавички нітрилові або фторкаучукові</li>
+                        <li>Захисні рукавички нітрилові</li>
                         <li>Захисні окуляри</li>
-                        <li>Повнолицьова маска з фільтр-патронами 3M™ 6051 A1 або 3M 6055/ 6057 (якщо змащування проводиться в гарячій печі)</li>
                     </ul>
                 `,
                 industrialApplication: `
@@ -331,20 +317,13 @@
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Шкідливий при проковтуванні (Н302)</li>
                         <li>Викликає подразнення шкіри (Н315)</li>
-                        <li>Може викликати алергічну реакцію шкіри (Н317)</li>
                         <li>Викликає серйозне подразнення очей (Н319)</li>
-                        <li>Шкідливий при вдиханні (Н332)</li>
-                        <li>Може викликати алергію або астматичні симптоми або затруднення дихання при вдиханні (Н334)</li>
-                        <li>Може викликати подразнення дихальних шляхів (Н335)</li>
                     </ul>
                 `,
                 actions: `
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li><b>Потрапляння в очі:</b> Промити великою кількістю води протягом 15 хв</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг (комір, краватка, ремінь або пояс)</li>
-                        <li><b>Потрапляння на шкіру:</b> Промити великою кількістю теплої води протягом 15 хв</li>
-                        <li><b>Проковтування:</b> Негайно викликати лікаря. Не викликати блювання</li>
                     </ul>
                 `,
                 protection: `
@@ -357,7 +336,7 @@
                 industrialApplication: `
                     <h3 class="font-bold text-lg mb-2">Застосування на виробництві</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Для підвищення стабільності 12v розʼєму під час SMT монтажу плати HC.001.PW1.001v9</li>
+                        <li>Для підвищення стабільності 12v розʼєму під час SMT монтажу</li>
                     </ul>
                 `
             },
@@ -366,27 +345,21 @@
                 dangers: `
                     <h3 class="font-bold text-lg mb-2">Небезпеки</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li>Шкідливий при проковтуванні (Н302)</li>
-                        <li>Шкідливий при контакті зі шкірою (Н312)</li>
-                        <li>При птраплянні на шкіру та очі викликає хімічні опіки (Н314)</li>
+                        <li>При потраплянні на шкіру та очі викликає хімічні опіки (Н314)</li>
                         <li>Викликає серйозне пошкодження очей (Н318)</li>
                     </ul>
                 `,
                 actions: `
                     <h3 class="font-bold text-lg mb-2">Дії при аварії</h3>
                     <ul class="list-disc pl-5 text-gray-700">
-                        <li><b>Потрапляння в очі:</b> Промити відкриті очі під проточною водою протягом кількох хвилин. Звернутися до лікаря.</li>
-                        <li><b>Отруєння при вдиханні:</b> Вивести на свіже повітря, послабити тісний одяг. У разі втрати свідомості покласти постраждалого у стабільне бокове положення (комір, краватка, ремінь або пояс)</li>
-                        <li><b>Потрапляння на шкіру:</b> Ретельно промити водою з милом </li>
-                        <li><b>Проковтування:</b> Випити велику кількість води та забезпечити доступ свіжого повітря. Негайно викликати лікаря.</li>
+                        <li><b>Потрапляння в очі:</b> Промити під проточною водою. Звернутися до лікаря.</li>
                     </ul>
                 `,
                 protection: `
                     <h3 class="font-bold text-lg mb-2">Засоби захисту</h3>
                     <ul class="list-disc pl-5 text-gray-700">
                         <li>Нітрилові або неопренові рукавички</li>
-                        <li>Хімічно стійкий фартух (за потреби)</li>
-                        <li>Герметичні захисні окуляри або повний щиток для обличчя</li>
+                        <li>Герметичні захисні окуляри</li>
                     </ul>
                 `,
                 industrialApplication: `
@@ -395,12 +368,12 @@
                         <li>Для технічного обслуговування УЗМ</li>
                     </ul>
                 `
-            },
+            }
         };
-// Функція для генерації списку речовин (з підтримкою пошуку)
+
         function renderList(searchTerm = '') {
             const substanceList = document.getElementById('substanceList');
-            substanceList.innerHTML = ''; // Очищуємо старий список
+            substanceList.innerHTML = '';
 
             const normalizedSearch = searchTerm.toLowerCase().trim();
             let hasResults = false;
@@ -420,20 +393,17 @@
                 }
             }
 
-            // Якщо нічого не знайдено
             if (!hasResults) {
                 substanceList.innerHTML = `<p class="text-gray-500 text-center py-4">Речовин за вашим запитом не знайдено.</p>`;
             }
         }
 
-        // Функція для відображення головної сторінки зі списком
         function showMainView() {
             document.getElementById('mainView').classList.remove('hidden');
             document.getElementById('detailView').classList.add('hidden');
             document.getElementById('appContainer').classList.remove('detail-view');
         }
 
-        // Функція для відображення детальної інформації про речовину
         function showDetailView(substanceName) {
             const data = substanceData[substanceName];
             if (!data) return;
@@ -441,7 +411,7 @@
             const detailContent = document.getElementById('detailContent');
             detailContent.innerHTML = `
                 <div class="info-container w-full sm:w-1/2">
-                    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center sm:text-left">${substanceName}</h2>
+                    <h2 class="text-xl sm:text-2xl font-semibold mb-4 text-center w-full">${substanceName}</h2>
                     <div class="image-and-buttons flex flex-col items-center w-full">
                         <img src="${data.image}" alt="Зображення ${substanceName}" class="rounded-lg mb-4 fixed-image">
                         <div class="buttons-container w-full sm:w-auto">
@@ -462,26 +432,19 @@
             document.getElementById('appContainer').classList.add('detail-view');
         }
 
-        // Функція для відображення конкретної інформації про речовину (небезпеки, дії, захист)
         function showSubstanceInfo(substanceName, infoType) {
             const displayPanel = document.getElementById('substanceInfoDisplay');
-            const content = substanceData[substanceName][infoType];
-            displayPanel.innerHTML = content;
+            displayPanel.innerHTML = substanceData[substanceName][infoType];
         }
 
-        // Функція для ініціалізації додатка
         function initializeApp() {
-            // Початковий рендер списку
             renderList();
-            
-            // Навішуємо подію пошуку на інпут
             const searchInput = document.getElementById('searchInput');
             searchInput.addEventListener('input', (e) => {
                 renderList(e.target.value);
             });
         }
 
-        // Запуск додатка при завантаженні сторінки
         window.onload = initializeApp;
     </script>
 </body>
